@@ -1,0 +1,25 @@
+name: audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tap this checkout
+        run: |
+          tap_dir="$(brew --repository)/Library/Taps/keeforge/homebrew-tap"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -s "$GITHUB_WORKSPACE" "$tap_dir"
+          # Homebrew 7 refuses casks from untrusted taps.
+          if brew commands --quiet | grep -qx trust; then brew trust --cask keeforge/tap/keeforge; fi
+      - run: brew style keeforge/tap
+      - run: brew audit --cask --strict --online keeforge/tap/keeforge
+      - run: brew livecheck --cask keeforge/tap/keeforge
