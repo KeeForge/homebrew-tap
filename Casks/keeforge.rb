@@ -1,6 +1,6 @@
 cask "keeforge" do
-  version "1.20.0,78"
-  sha256 "3ed52526c017a5650b0c3bbe29008b0614ac626b65dc013cfb50a3f66d976699"
+  version "1.21.0,82"
+  sha256 "3c53f45faf4e6fbcb7401b452cb1b7fa448395b4283b50acfe2b6e71bbbea829"
 
   url "https://github.com/KeeForge/KeeForge/releases/download/v#{version.csv.first}/KeeForge-#{version.csv.first}-b#{version.csv.second}.zip"
   name "KeeForge"
